@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th colspan="3"></th>
+      <th colspan="3"></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admins.each do |admin| %>
+      <tr>
+        <td><%= admin.email %></td>
+        <% if admin.id != session[:admin_id] && !admin.master?%>
+        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if admin.master? %>
+        <td>Master</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin', new_admin_path %>
