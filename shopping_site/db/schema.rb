@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_152221) do
   create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
-    t.boolean "master"
+    t.boolean "master", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
