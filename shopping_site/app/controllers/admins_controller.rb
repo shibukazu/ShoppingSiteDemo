@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   #before_action :set_admin, only: [:show, :edit, :update, :destroy]
-  before_action :admin?, only: [:index, :create, :destroy]
+  before_action :admin?, only: [:index, :new, :create, :destroy]
 
   # GET /admins
   # GET /admins.json
@@ -17,11 +17,8 @@ class AdminsController < ApplicationController
   # POST /admins.json
   def create
     @admin = Admin.new(create_admin_params)
-    
-
     if @admin.save
       flash[:notice] = 'Admin was successfully created.' 
-      log_in_as_admin(@admin)
       redirect_to admins_url
     else
       render :new 
@@ -47,6 +44,7 @@ class AdminsController < ApplicationController
 
     def admin?
       if session[:admin_id].nil?
+        
         redirect_to root_url
       elsif Admin.find(session[:admin_id]).nil?
         redirect_to root_url
