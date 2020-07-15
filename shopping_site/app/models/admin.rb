@@ -6,6 +6,12 @@ class Admin < ApplicationRecord
                     format: { with: VALID_EMAIL_REGIX},
                     uniqueness: { case_sensitive: false }
     validates :password, length: { minimum: 8}, presence: true
+
+    def self.digest(string)
+        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                      BCrypt::Engine.cost
+        BCrypt::Password.create(string, cost: cost)
+    end
     private
         def down_case_email
             self.email.downcase!

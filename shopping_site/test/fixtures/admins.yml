@@ -1,9 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  email: MyString
-  password_digest: MyString
-
-two:
-  email: MyString
-  password_digest: MyString
+master:
+  email: "master@test.com"
+  password_digest: <%= Admin.digest('12345678') %>
+  master: <%= true %>

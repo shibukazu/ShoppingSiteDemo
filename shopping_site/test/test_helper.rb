@@ -8,10 +8,13 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-  
-  def log_in_as_admin(admin)
-    session[:admin_id] = admin.id
-  end
 
   # Add more helper methods to be used by all tests here...
+end
+
+class ActionDispatch::IntegrationTest
+  def log_in_as_admin(admin)
+    post admins_session_create_path, params: { email: admin.email,
+                                              password: admin.password }
+  end
 end
