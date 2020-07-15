@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>In Your Cart</h1>
+<% if !@carts.empty? %>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th colspan="3"></th>
+    </tr>
+</thead>
+
+<tbody>
+    <% sum = 0 %>
+    <% @carts.each do |cart| %>
+        <tr>
+            
+            <td><%= cart.item.name %></td>
+            <td><%= cart.item.price %></td>
+            <td><%= link_to (image_tag (cart.item.image.url) if cart.item.image?), item_path(cart.item) %></td>
+            <td><%= link_to "削除", cart_path(cart), method: :delete %></td>
+        </tr>
+        <% sum = sum + cart.item.price %>
+    <% end %>
+</tbody>
+</table>
+
+<h2>合計金額は<%= sum %>円です</h2>
+<% else %>
+<h2>まだカートは空です</h2>
+<% end %>
+

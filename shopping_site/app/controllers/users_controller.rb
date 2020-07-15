@@ -28,9 +28,9 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'User was successfully created'
       redirect_to root_url
-      else
-        render "new"
-      end
+    else
+      render "new"
+    end
     
   end
 

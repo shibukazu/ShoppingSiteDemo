@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'static#home'
   get 'static/home'
   
+  resources :carts, only: [:create, :index, :destroy]
   resources :admins
   resources :items
   
