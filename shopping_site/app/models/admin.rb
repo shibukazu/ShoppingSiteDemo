@@ -5,7 +5,7 @@ class Admin < ApplicationRecord
     validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGIX},
                     uniqueness: { case_sensitive: false }
-    validates :password, length: { minimum: 8}, presence: true
+    validates :password, length: { minimum: 10}, presence: true
 
     def self.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

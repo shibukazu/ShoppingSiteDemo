@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2020_07_15_073145) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.string "image_url"
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
