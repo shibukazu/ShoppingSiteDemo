@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'users_session/new'
+  post 'users_session/create'
+  get 'users_session/destroy'
+  resources :users
   get 'admins_session/new'
   post'admins_session/create'
   get 'session/new'

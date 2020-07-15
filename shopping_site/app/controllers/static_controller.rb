@@ -3,5 +3,6 @@ class StaticController < ApplicationController
   end
 
   def home
+    @items = Item.all()
   end
 end

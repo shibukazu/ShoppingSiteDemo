@@ -1,2 +1,28 @@
-<h1>Static#home</h1>
-<p>Find me in app/views/static/home.html.erb</p>
+<p id="notice"><%= notice %></p>
+<h1>ショッピングサイト</h1>
+<% if logged_in_as_user?() %>
+<%= link_to "ログアウト",  users_session_destroy_path %>
+<% else %>
+<%= link_to 'ログイン', users_session_new_path %>
+<% end %>
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="6"></th>
+            <th colspan="6"></th>
+            <th colspan="6"></th>
+            <th colspan="6"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @items.each do |item| %>
+        <tr>
+            <td><%= link_to (image_tag item.image.url if item.image?), item_path(item) %></td>
+            <td><%= item.name %></td>
+            <td><%= item.price %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
