@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     VALID_EMAIL_REGIX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+    has_many :carts
+    has_many :users, through: :carts
     has_secure_password
     before_save :down_case_email
     validates :name, presence: true
