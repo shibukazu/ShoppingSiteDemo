@@ -1,5 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 master:
   email: "master@test.com"
-  password_digest: <%= Admin.digest('12345678') %>
+  password_digest: <%= Admin.digest('1234567890') %>
   master: <%= true %>

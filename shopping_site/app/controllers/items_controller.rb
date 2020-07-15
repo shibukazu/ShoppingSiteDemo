@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
         # GET /admins
         # GET /admins.json
         def index
-            @items = Item.all
+            @items = Item.all.order(updated_at: "DESC")
         end
 
         # GET /admins/new
@@ -18,7 +18,14 @@ class ItemsController < ApplicationController
         end
 
         def update
-
+            @item = Item.find(params[:id])
+            if @item.update_attributes(item_params)
+                flash[:success] = "Item information updated successfully"
+                redirect_to items_url
+            
+            else
+                render 'edit'
+            end
         end
         # POST /admins
         # POST /admins.json

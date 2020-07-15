@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>ALl Items</h1>
+<h1>ALL Items</h1>
 <%= link_to "Add new Item", new_item_path %>
 <table>
   <thead>
@@ -19,9 +19,9 @@
       <tr>
         <td><%= item.name %></td>
         <td><%= item.price %></td>
-        <td><%= item.image %></td>
+        <td><%= image_tag item.image.url if item.image? %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Edit', edit_item_path %>
+        <td><%= link_to 'Edit', edit_item_path(item) %>
       </tr>
     <% end %>
   </tbody>

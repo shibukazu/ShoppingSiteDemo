@@ -2,8 +2,8 @@ require 'test_helper'
 
 class AdminSiteTest < ActionDispatch::IntegrationTest
   def setup
-    @admin = Admin.new(email: "Example@test.com", password: "12345678", password_confirmation: "12345678")
-    @master = Admin.new(email: "master@test.com", password: "12345678")
+    @admin = Admin.new(email: "Example@test.com", password: "1234567890", password_confirmation: "1234567890")
+    @master = Admin.new(email: "master@test.com", password: "1234567890")
   end
 
   test "when access to signup should redirect root without login" do
@@ -13,8 +13,8 @@ class AdminSiteTest < ActionDispatch::IntegrationTest
 
   test "when create admin user should redirect root without login" do
     post admins_path, params: { admin: { email: "test@test.com",
-                                        password: "12345678",
-                                        password_confirmation: "12345678" } }
+                                        password: "1234567890",
+                                        password_confirmation: "1234567890" } }
     assert_redirected_to root_url
   end
 

@@ -2,11 +2,12 @@ require 'test_helper'
 
 class AdminTest < ActiveSupport::TestCase
   def setup
-    @admin = Admin.new(email: "Example@test.com", password: "12345678", password_confirmation: "12345678")
+    @admin = Admin.new(email: "Example@test.com", password: "1234567890", password_confirmation: "1234567890")
   end
 
 
   test "should be valid" do
+    
     assert @admin.valid?
   end
 
