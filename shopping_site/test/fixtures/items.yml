@@ -1,3 +1,11 @@
 Test1:
   name: TestPhone
   price: <%= 100000 %>
+
+Test2:
+  name: TestPC
+  price: <%= 120000 %>
+
+Test3:
+  name: TestCake
+  price: <%= 1300000 %>
