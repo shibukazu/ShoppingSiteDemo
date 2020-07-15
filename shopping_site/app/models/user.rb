@@ -2,6 +2,7 @@ class User < ApplicationRecord
     VALID_EMAIL_REGIX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     has_secure_password
     before_save :down_case_email
+    validates :name, presence: true
     validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGIX},
                     uniqueness: { case_sensitive: false }
