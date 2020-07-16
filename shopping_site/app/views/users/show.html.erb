@@ -1,19 +1,20 @@
-<p id="notice"><%= notice %></p>
+<h1>注文確認ページ</h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<table>
+  <thead>
+  <tr>
+      <th colspan="3"></th>
+      <th colspan="3"></th>
+      <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @user.orders.each do |order| %>
+      <tr>
+        <td><%= link_to (image_tag (order.items.first.image.url) if order.items.first.image?), order_path(order) %></td>
+        <td><%= order.items.first.name %>などのご注文</td>
+        <td><%= order.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

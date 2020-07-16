@@ -2,14 +2,15 @@
 <h1>ショッピングサイト</h1>
 <% if logged_in_as_user?() %>
 <%= link_to "ログアウト",  users_session_destroy_path %>
+<%= link_to "注文履歴一覧", user_path(session[:user_id]) %>
 <% else %>
 <%= link_to 'ログイン', users_session_new_path %>
 <%= link_to "アカウントをお持ちでない方はこちら", new_user_path %>
-<% end %>
 <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
     <div class="actions">
         <%= form.submit value: "カートを見る" %>
     </div>
+<% end %>
 <% end %>
 
 
