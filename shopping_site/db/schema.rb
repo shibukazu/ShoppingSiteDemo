@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_07_15_160705) do
     t.integer "item_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "item_id"], name: "index_carts_on_user_id_and_item_id", unique: true
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
