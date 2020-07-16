@@ -7,8 +7,9 @@ class CartsController < ApplicationController
         @cart = Cart.new(user_id: session[:user_id], item_id: params[:item_id])
         if @cart.save
             flash[:notice] = 'The item was successfully added to your cart'
-            redirect_to carts_url
+            redirect_to root_url
         else
+            flash[:warning] = 'カートに追加できませんでした'
             redirect_to root_url
         end
     end
