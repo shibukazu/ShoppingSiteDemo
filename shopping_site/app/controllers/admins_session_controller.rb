@@ -15,6 +15,11 @@ class AdminsSessionController < ApplicationController
     end
   end
 
+  def destroy
+    log_out_as_admin()
+    redirect_to root_url
+  end
+
   private
 
   def admin_params

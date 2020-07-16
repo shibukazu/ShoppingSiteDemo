@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users
   get 'admins_session/new'
   post'admins_session/create'
+  get 'admins_session/destroy'
   get 'session/new'
   root 'static#home'
   get 'static/home'
