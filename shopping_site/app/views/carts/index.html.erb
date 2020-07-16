@@ -2,33 +2,42 @@
 
 <h1>In Your Cart</h1>
 <% if !@carts.empty? %>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Image</th>
-        <th colspan="3"></th>
-    </tr>
-</thead>
-
-<tbody>
-    <% sum = 0 %>
-    <% @carts.each do |cart| %>
+    <% order = Order.new(user_id: session[:user_id], status: 0) %>
+    <table>
+        <thead>
         <tr>
-            
-            <td><%= cart.item.name %></td>
-            <td><%= cart.item.price %></td>
-            <td><%= link_to (image_tag (cart.item.image.url) if cart.item.image?), item_path(cart.item) %></td>
-            <td><%= link_to "削除", cart_path(cart), method: :delete %></td>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th colspan="3"></th>
         </tr>
-        <% sum = sum + cart.item.price %>
-    <% end %>
-</tbody>
-</table>
+    </thead>
 
-<h2>合計金額は<%= sum %>円です</h2>
+    <tbody>
+        <% sum = 0 %>
+        <% @carts.each do |cart| %>
+            <tr>
+                
+                <td><%= cart.item.name %></td>
+                <td><%= cart.item.price %></td>
+                <td><%= link_to (image_tag (cart.item.image.url) if cart.item.image?), item_path(cart.item) %></td>
+                <td><%= link_to "削除", cart_path(cart), method: :delete %></td>
+                <% order.carts << cart %>
+            </tr>
+            <% sum = sum + cart.item.price %>
+
+        <% end %>
+    </tbody>
+    </table>
+
+    <h2>合計金額は<%= sum %>円です</h2>
+    <%= form_with(model: order, local: true) do |form| %>
+        <div class="actions">
+            <%= form.submit value: "注文する" %>
+        </div>
+    <% end %>
 <% else %>
-<h2>まだカートは空です</h2>
+    <h2>まだカートは空です</h2>
 <% end %>
+
 
