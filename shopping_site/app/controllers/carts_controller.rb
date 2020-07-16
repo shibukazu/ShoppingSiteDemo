@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
     def index
         @carts = Cart.where(user_id: session[:user_id])
+        
     end
 
     def create

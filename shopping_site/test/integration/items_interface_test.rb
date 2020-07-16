@@ -23,7 +23,7 @@ class ItemsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match carts_path.to_s, response.body
     assert_match "カートに追加", response.body
     post carts_path, params: { item_id: @item1.id }
-    follow_redirect!
+    get carts_path
     carts = assigns(:carts)
     carts.each do |cart|
       assert_match cart.item.name, response.body

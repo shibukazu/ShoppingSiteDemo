@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:create, :index, :destroy]
   resources :admins
   resources :items
-  resources :orders, only: [:create, :show]
+  
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

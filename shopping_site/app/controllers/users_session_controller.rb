@@ -5,6 +5,7 @@ class UsersSessionController < ApplicationController
 
   def create
     @user = User.find_by(email: user_params[:email].downcase)
+    
     if @user && @user.authenticate(user_params[:password])
       log_in_as_user(@user)
       flash[:notice] = 'User was successfully logged in'
