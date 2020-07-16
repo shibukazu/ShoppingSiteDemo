@@ -1,0 +1,2 @@
+module OrdersAdminHelper
+end

@@ -1,0 +1,30 @@
+<h1>注文確認ページ</h1>
+<table>
+    <thead>
+    <tr>
+        <th colspan="3"></th>
+        <th colspan="3"></th>
+        <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+        <td><%= link_to (image_tag (order.items.first.image.url) if order.items.first.image?), orders_admin_show_path(order_id: order.id) %></td>
+        <td><%= order.items.first.name %>などのご注文</td>
+        <td><%= order.created_at %></td>
+        <td>
+            <% case order.status %>
+                <% when 0 %>
+                    入金待ち
+                <% when 1 %>
+                    発送待ち
+                <% when 2 %>
+                    発送完了
+            <% end %>
+        </td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+

@@ -1,0 +1,53 @@
+<h1>注文詳細ページ</h1>
+<h2>注文処理状況 : 
+<% case @order.status %>
+<% when 0 %>
+入金待ち
+<% when 1 %>
+発送待ち
+<% when 2 %>
+発送完了
+<% end %>
+<br>
+<br>
+<%= form_with(url: order_path(@order), method: :patch, local: true) do |form| %>
+    <% case @order.status %>
+        <% when 0 %>
+            <%= form.select :status, [ ["発送待ち",1], ["発送完了", 2] ], prompt: "注文ステータスを選択してください" %>
+        <% when 1 %>
+            <%= form.select :status, [ ["発送完了", 2] ], prompt: "注文ステータスを選択してください" %>
+        <% when 2 %>
+            変更できません。管理者にご連絡ください。
+    <% end %>
+    <div class="actions">
+        <%= form.submit value: "変更する" %>
+    </div>
+<% end %>
+<br>
+</h2>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="3"></th>
+            <th colspan="3"></th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% sum = 0 %>
+        <% @order.items.each do |item| %>
+            <tr>
+                <td><%= link_to (image_tag (item.image.url) if item.image?), item_path(item) %></td>
+                <td><%= item.name %></td>
+                <td><%= item.price %></td>
+            </tr>
+            <% sum = sum + item.price %>
+        <% end %>
+    </tbody>
+    </table>
+<h2>合計金額 : <%= sum %>円</h2>
+<h2>注文者情報</h2>
+<h3>ユーザー名 : <%= @order.user.name %></h3>
+<h3>メールアドレス : <%= @order.user.email %></h3>
+
