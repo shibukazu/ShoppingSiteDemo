@@ -2,9 +2,11 @@
 <h2>注文処理状況 : 
 <% case @order.status %>
 <% when 0 %>
-発送手続き中
+入金待ち
 <% when 1 %>
-発送済み
+発送待ち
+<% when 2 %>
+発送完了
 <% end %>
 </h2>
     <table>
