@@ -5,14 +5,13 @@ class UsersSessionController < ApplicationController
 
   def create
     @user = User.find_by(email: user_params[:email].downcase)
-    
     if @user && @user.authenticate(user_params[:password])
       log_in_as_user(@user)
-      flash[:notice] = 'User was successfully logged in'
-      redirect_to root_url
+      flash[:notice] = 'ログインしました'
+      redirect_back_or(root_url)
     else
-      flash[:warning] = "Invalid user"
-      redirect_to root_url
+      flash[:warning] = "ログインできませんでした"
+      render :new
     end
   end
 
@@ -32,4 +31,5 @@ class UsersSessionController < ApplicationController
     def user_params
       params.permit(:email, :password)
     end
+
 end

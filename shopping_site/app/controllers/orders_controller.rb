@@ -1,6 +1,11 @@
 class OrdersController < ApplicationController
   def new
-    @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
+    if logged_in_as_user? 
+      @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
+    else
+      store_location
+      redirect_to users_session_new_url
+    end
   end
 
   def create

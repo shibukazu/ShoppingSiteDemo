@@ -1,17 +1,27 @@
 class CartsController < ApplicationController
     def index
-        @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
-        
+        if logged_in_as_user?
+            @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
+        else
+            store_location
+            redirect_to users_session_new_url
+        end
     end
 
     def create
-        @cart = Cart.new(user_id: session[:user_id], item_id: params[:item_id])
-        if @cart.save
-            flash[:notice] = 'The item was successfully added to your cart'
-            redirect_to root_url
+        if logged_in_as_user?
+            @cart = Cart.new(user_id: session[:user_id], item_id: params[:item_id])
+
+            if @cart.save
+                flash[:notice] = 'カートに追加しました'
+                redirect_to root_url
+            else
+                flash[:warning] = 'カートに追加できませんでした'
+                redirect_to root_url
+            end
         else
-            flash[:warning] = 'カートに追加できませんでした'
-            redirect_to root_url
+            store_location
+            redirect_to users_session_new_url
         end
     end
 
