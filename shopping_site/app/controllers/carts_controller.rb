@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
     def index
-        @carts = Cart.where(user_id: session[:user_id])
+        @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
         
     end
 

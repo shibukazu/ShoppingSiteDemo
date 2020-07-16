@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>In Your Cart</h1>
+<h1>注文確認ページ</h1>
 <% if !@carts.empty? %>
     <table>
         <thead>
@@ -28,13 +28,17 @@
     </table>
 
     <h2>合計金額は<%= sum %>円です</h2>
-    <%= form_with(url: new_order_path, method: :get, local: true) do |form| %>
+    <h2>本当に注文しますか？</h2>
+    <%= form_with(url: orders_create_path, method: :get, local: true) do |form| %>
         <div class="actions">
-            <%= form.submit value: "注文する" %>
+            <%= form.submit value: "はい" %>
+        </div>
+    <% end %>
+    <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
+        <div class="actions">
+            <%= form.submit value: "いいえ" %>
         </div>
     <% end %>
 <% else %>
     <h2>まだカートは空です</h2>
 <% end %>
-
-
