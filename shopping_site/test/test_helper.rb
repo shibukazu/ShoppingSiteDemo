@@ -17,4 +17,9 @@ class ActionDispatch::IntegrationTest
     post admins_session_create_path, params: { email: admin.email,
                                               password: admin.password }
   end
+  
+  def log_in_as_user(user)
+    post users_session_create_path, params: { email: user.email,
+                                              password: "1234567890" }
+  end
 end
