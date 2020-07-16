@@ -10,18 +10,22 @@
 <% end %>
 <br>
 <br>
-<%= form_with(url: order_path(@order), method: :patch, local: true) do |form| %>
+<%= form_with(url: orders_admin_update_path(order_id: @order.id), method: :patch, local: true) do |form| %>
     <% case @order.status %>
         <% when 0 %>
             <%= form.select :status, [ ["発送待ち",1], ["発送完了", 2] ], prompt: "注文ステータスを選択してください" %>
+            <div class="actions">
+                <%= form.submit value: "変更する" %>
+            </div>
         <% when 1 %>
             <%= form.select :status, [ ["発送完了", 2] ], prompt: "注文ステータスを選択してください" %>
+            <div class="actions">
+                <%= form.submit value: "変更する" %>
+            </div>
         <% when 2 %>
-            変更できません。管理者にご連絡ください。
+            <p>ステータスは変更できません。</p>
+            <p>管理者にご連絡ください。</p>
     <% end %>
-    <div class="actions">
-        <%= form.submit value: "変更する" %>
-    </div>
 <% end %>
 <br>
 </h2>

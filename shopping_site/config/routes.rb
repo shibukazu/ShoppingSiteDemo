@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'orders_admin/index'
   get 'orders_admin/show'
+  patch 'orders_admin/update'
   get 'users_session/new'
   post 'users_session/create'
   get 'users_session/destroy'
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:create, :index, :destroy]
   resources :admins
   resources :items
-  resources :orders, only: [:show, :new, :update]
+  resources :orders, only: [:show, :new]
   
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
