@@ -6,7 +6,8 @@ Admin.create!(
 )
 
 User.create!(
-    name: "Kazuki",
+    first_name: "和樹",
+    family_name: "渋谷",
     email: "test@test.com",
     password: '1234567890',
     password_confirmation: '1234567890'
@@ -15,12 +16,14 @@ User.create!(
 
 gimei = Gimei.name
 10.times do |n|
-    name = gimei.kanji
+    first_name = gimei.first.kanji
+    family_name = gimei.last.kanji
     email = "example-user#{n+1}@fake.org"
-    User.create!(name: name,
-                 email: email,
-                 password: "1234567890",
-                 password_confirmation: "1234567890")
+    User.create!(first_name: first_name,
+                family_name: family_name,
+                email: email,
+                password: "1234567890",
+                password_confirmation: "1234567890")
 end
 
 25.times do |n|

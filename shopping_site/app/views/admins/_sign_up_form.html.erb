@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.label :email, "メールアドレス " %>
+    <%= form.text_field :email, placeholder: "メールアドレス" %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password, placeholder: "パスワード" %>
   </div>
 
   <div class="field">
     <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
+    <%= form.password_field :password_confirmation, placeholder: "パスワード（確認)" %>
   </div>
 
 
