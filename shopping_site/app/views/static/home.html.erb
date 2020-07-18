@@ -3,7 +3,6 @@
 <% if logged_in_as_user?() %>
 <%= link_to "ログアウト",  users_session_destroy_path %>
 <%= link_to "注文履歴一覧", user_path(session[:user_id]) %>
-<% else %>
 <%= link_to 'ログイン', users_session_new_path %>
 <%= link_to "アカウントをお持ちでない方はこちら", new_user_path %>
 <% end %>
@@ -13,8 +12,12 @@
     </div>
 <% end %>
 
+<%= form_with(url: static_home_path, method: :get, local: true) do |form| %>
+    <%= form.text_field :search, value: @search_word %>
+    <%= form.submit value: "検索" %>
+<% end %>
 
-<%= render 'shared/sort_items', url: root_path %>
+<%= render 'shared/sort_items', url: root_path, search_word: @search_word %>
 <table>
     <thead>
         <tr>

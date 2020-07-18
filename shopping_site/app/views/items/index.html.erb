@@ -2,7 +2,13 @@
 
 <h1>ALL Items</h1>
 <%= link_to "Add new Item", new_item_path %>
-<%= render "shared/sort_items", url: items_path %>
+
+<%= form_with(url: items_path, method: :get, local: true) do |form| %>
+    <%= form.text_field :search, value: @search_word %>
+    <%= form.submit value: "検索" %>
+<% end %>
+
+<%= render "shared/sort_items", url: items_path, search_word: @search_word %>
 <table>
   <thead>
     <tr>

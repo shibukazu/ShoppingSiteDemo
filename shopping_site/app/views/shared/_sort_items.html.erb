@@ -2,7 +2,7 @@
 <% #params[:sort]に渡す→存在で場合わけ %>
 <%= form_with(url: url, method: :get, local: true) do |form| %>
     <%= form.select :sort, [ ["新着順",1], ["古い順", 2], ["名前順", 3] ], prompt: "並び順を選択してください" %>
-    
+    <%= form.hidden_field :search, value: search_word %>
     <div class="actions">
         <%= form.submit value: "並び替える" %>
     </div>
