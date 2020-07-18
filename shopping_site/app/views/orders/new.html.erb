@@ -28,7 +28,7 @@
     </table>
 
     <h2>合計金額は<%= sum %>円です</h2>
-    <h2>本当に注文しますか？</h2>
+    <h2>本当に購入しますか？</h2>
     <%= form_with(url: orders_create_path, method: :get, local: true) do |form| %>
         <div class="actions">
             <%= form.submit value: "はい" %>

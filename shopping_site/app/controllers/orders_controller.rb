@@ -15,14 +15,14 @@ class OrdersController < ApplicationController
       @order.items << cart.item
     end
     if @order.save
-      flash[:notice] = '注文は正常に処理されました'
+      flash[:notice] = '購入しました'
       @carts.each do |cart|
         cart.destroy
       end
       redirect_to root_url
     else
       
-      flash[:warning] = '注文に失敗しました　再度ご注文ください'
+      flash[:warning] = '購入に失敗しました　再度ご注文ください'
       redirect_to carts_url
     end
     
