@@ -5,7 +5,7 @@ class AdminsController < ApplicationController
   # GET /admins
   # GET /admins.json
   def index
-    @admins = Admin.all
+    @admins = Admin.page(params[:page]).per(20)
   end
 
   # GET /admins/new

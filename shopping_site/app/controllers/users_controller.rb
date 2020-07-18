@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+    @orders = User.find(params[:id]).orders.page(params[:page]).per(10)
   end
 
   # GET /users/new

@@ -1,7 +1,7 @@
 class OrdersAdminController < ApplicationController
   before_action :admin?, only: [:update]
   def index
-    @orders = Order.all
+    @orders = Order.page(params[:page]).per(20)
     render 'orders_admin/index'
   end
 
