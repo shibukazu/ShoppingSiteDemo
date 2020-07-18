@@ -13,6 +13,7 @@ class OrdersAdminController < ApplicationController
   def update
     
     @order = Order.find(params[:order_id])
+    status_request_valid?(@order, params[:order_id])
     if ((params[:status] == '1' || params[:status] == '2') && (not params[:status].nil?))
       @order.update_attributes(status: params[:status].to_i)
       flash[:success] = "注文ステータスが更新されました"
@@ -31,6 +32,13 @@ class OrdersAdminController < ApplicationController
         redirect_to root_url
       elsif Admin.find(session[:admin_id]).nil?
         redirect_to root_url
+      end
+    end
+
+    def status_request_valid?(order, status)
+      previous_status = order.status
+      if previous_status > status.to_i
+        redirect_to orders_admin_index_url
       end
     end
 end

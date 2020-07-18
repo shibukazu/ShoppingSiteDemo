@@ -93,5 +93,16 @@ class AdminSiteTest < ActionDispatch::IntegrationTest
     assert user_order.status == 1
   end
 
+  test "cant rollback status" do
+    user_order = @user.orders.first
+    log_in_as_admin(@master)
+    patch orders_admin_update_path(order_id: user_order.id), params: {status: 1}
+    user_order.reload
+    assert user_order.status == 1
+    patch orders_admin_update_path(order_id: user_order.id), params: {status: 0}
+    user_order.reload
+    assert user_order.status == 1
+  end
+
 
 end
