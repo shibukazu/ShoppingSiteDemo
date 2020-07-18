@@ -20,7 +20,7 @@ class UserOrderedTest < ActionDispatch::IntegrationTest
     get user_path(@user)
     @user.orders.each do |order|
       assert_select "td", text: order.items.first.name.to_s + "などのご注文"
-      assert_select "td", text: order.created_at.to_s 
+      assert_select "td", text: order.created_at.to_s(:datetime_jp)
     end
     #注文詳細へのテスト
     #入金待ち状態

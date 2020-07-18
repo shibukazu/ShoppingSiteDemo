@@ -2,13 +2,14 @@ require 'test_helper'
 
 class UserSignupTest < ActionDispatch::IntegrationTest
   def setup
-    @user = User.new(name: "test", email: "Example@example.com", password: "1234567890", password_confirmation: "1234567890")
+    @user = User.new(first_name: "test", family_name: "test", email: "Example@example.com", password: "1234567890", password_confirmation: "1234567890")
     @invalid_user = User.new(name: "test2", email: "Test")
   end
 
   test "should increase user with valid information" do
     assert_difference "User.count", 1 do
-      post users_path, params: { user: { name: @user.name,
+      post users_path, params: { user: { first_name: @user.first_name,
+                                        family_name: @user.family_name,
                                         email: @user.email,
                                         password: @user.password,
                                         password_confirmation: @user.password_confirmation } }

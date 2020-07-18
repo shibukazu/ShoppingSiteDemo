@@ -16,4 +16,6 @@ elsif Rails.env.development?
 
 else
     ActionMailer::Base.delivery_method = :test
+    host = 'localhost:3000'
+    Rails.application.routes.default_url_options[:host] = host
 end

@@ -24,4 +24,18 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     get users_session_destroy_path
     assert session[:user_id].nil?
   end
+
+  test "when remember_me user don't have to log in" do
+    post users_session_create_path, params: { email: @user.email,
+                                              password: "1234567890" }
+    session.delete(:user_id)
+    get root_path
+    assert_match "ログイン", response.body
+    post users_session_create_path, params: { email: @user.email,
+                                              password: "1234567890",
+                                              remember_me: "1" }
+    session.delete(:user_id)
+    get root_path
+    assert_match "ログアウト", response.body
+  end
 end       

@@ -12,12 +12,26 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGIX},
                     uniqueness: { case_sensitive: false }
     validates :password, length: { minimum: 10}, presence: true
+    #columnでないremember_tokenを外部参照できるように
+    attr_accessor :remember_token
 
     def self.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                       BCrypt::Engine.cost
         BCrypt::Password.create(string, cost: cost)
     end
+
+    def self.new_token
+        SecureRandom.urlsafe_base64
+    end
+
+    
+
+    def authenticated?(remember_token)
+        BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
+    end
+
+
     private
         def down_case_email
             self.email.downcase!

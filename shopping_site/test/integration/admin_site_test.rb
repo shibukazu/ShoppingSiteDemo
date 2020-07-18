@@ -48,7 +48,7 @@ class AdminSiteTest < ActionDispatch::IntegrationTest
     orders = Order.all
     orders.each do |order|
       assert_select "td", text: order.items.first.name + "などのご注文"
-      assert_select "td", text: order.created_at.to_s
+      assert_select "td", text: order.created_at.to_s(:datetime_jp)
       assert_select "td", text: @status_hash[order.status.to_s.to_sym]
     end
     #status変更に関するテスト

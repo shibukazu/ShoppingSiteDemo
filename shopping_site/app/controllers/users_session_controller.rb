@@ -8,6 +8,11 @@ class UsersSessionController < ApplicationController
     if @user && @user.authenticate(user_params[:password])
       log_in_as_user(@user)
       flash[:notice] = 'ログインしました'
+      if params[:remember_token] == '1'
+        remember(@user)
+      else
+        forget(@user)
+      end
       redirect_back_or(root_url)
     else
       flash[:warning] = "ログインできませんでした"
