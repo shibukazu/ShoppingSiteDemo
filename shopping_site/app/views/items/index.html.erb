@@ -2,6 +2,7 @@
 
 <h1>ALL Items</h1>
 <%= link_to "Add new Item", new_item_path %>
+<%= render "shared/sort_items", url: items_path %>
 <table>
   <thead>
     <tr>
