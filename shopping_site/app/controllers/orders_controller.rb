@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
       end
       redirect_to root_url
     else
+      
       flash[:warning] = '注文に失敗しました　再度ご注文ください'
       redirect_to carts_url
     end
