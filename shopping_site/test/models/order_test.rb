@@ -17,6 +17,7 @@ class OrderTest < ActiveSupport::TestCase
 
 
   test "don't have to have order_pair" do
+    assert @order.order_pairs.empty?
     assert @order.valid?
   end
 

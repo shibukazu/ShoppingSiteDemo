@@ -21,6 +21,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "don't have to have orders" do
+    
+    assert @user.orders.empty?
+    assert @user.valid?
+  end
+
 
   test "password have words less than minimum should be rejected" do
     @user.password = "123456789"
