@@ -7,6 +7,7 @@ class OrderInfoMailer < ApplicationMailer
             to: @user.email 
         ) do |format|
             format.text
+            format.html
         end
     end
 end

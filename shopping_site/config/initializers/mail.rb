@@ -11,7 +11,7 @@ if Rails.env.production?
     }
 elsif Rails.env.development?
     ActionMailer::Base.delivery_method = :letter_opener
-    host = 'localhost'
+    host = 'localhost:3000'
     Rails.application.routes.default_url_options[:host] = host
 
 else

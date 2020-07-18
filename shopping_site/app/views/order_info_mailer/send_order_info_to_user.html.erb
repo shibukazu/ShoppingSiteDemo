@@ -1,0 +1,29 @@
+
+<h2><%= @user.name %> 様 </h2>
+
+<p>ご注文を受け付けました。</p>
+<h3>注文商品一覧 :</h3>
+<% sum = 0 %>
+<table>
+    <thead>
+        <tr>
+            <th colspan="6"></th>
+            <th colspan="6"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @order.items.each do |item| %>
+        <tr>
+            <td><%= item.name %></td>
+            <td><%= item.price %>円</td>
+            <% sum += item.price %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<p>合計 : <%= sum %>円</p>
+<p>ご注文日時 : <%= @order.created_at.to_s(:datetime_jp) %>
+<p>ご注文履歴はこちら<%= order_url(@order) %></p>
+
+<h3>今後ともよろしくお願いいたします。</h3>
