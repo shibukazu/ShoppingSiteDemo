@@ -12,7 +12,7 @@
     <tr>
         <td><%= link_to (image_tag (order.items.first.image.url) if order.items.first.image?), orders_admin_show_path(order_id: order.id) %></td>
         <td><%= order.items.first.name %>などのご注文</td>
-        <td><%= order.created_at %></td>
+        <td><%= order.created_at.to_s(:datetime_jp) %></td>
         <td>
             <% case order.status %>
                 <% when 0 %>
