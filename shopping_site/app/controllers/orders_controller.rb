@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
       @carts.each do |cart|
         cart.destroy
       end
+      OrderInfoMailer.send_order_info_to_user(@order).deliver
       redirect_to root_url
     else
       
