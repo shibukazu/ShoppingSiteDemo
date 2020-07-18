@@ -36,6 +36,7 @@ class AdminSiteTest < ActionDispatch::IntegrationTest
     log_in_as_admin(@master)
     get admins_path
     assert_template 'admins/index'
+    
   end
 
   test "user's orders history" do
@@ -79,6 +80,17 @@ class AdminSiteTest < ActionDispatch::IntegrationTest
     get orders_admin_index_path
     assert_match @status_hash[:"2"], response.body, count: 1
     assert_select "form select[name=?]", "status", count: 0
+  end
+
+  test "non-admin user can't chnage status" do
+    user_order = @user.orders.first
+    patch orders_admin_update_path(order_id: user_order.id), params: {status: 1}
+    user_order.reload
+    assert_not user_order.status == 1
+    log_in_as_admin(@master)
+    patch orders_admin_update_path(order_id: user_order.id), params: {status: 1}
+    user_order.reload
+    assert user_order.status == 1
   end
 
 

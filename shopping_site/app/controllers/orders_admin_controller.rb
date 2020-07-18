@@ -1,4 +1,5 @@
 class OrdersAdminController < ApplicationController
+  before_action :admin?, only: [:update]
   def index
     @orders = Order.all
     render 'orders_admin/index'
@@ -21,4 +22,15 @@ class OrdersAdminController < ApplicationController
       redirect_back(fallback_location: orders_admin_index_path)
     end
   end
+
+  private
+    def admin?
+      
+      if session[:admin_id].nil?
+        
+        redirect_to root_url
+      elsif Admin.find(session[:admin_id]).nil?
+        redirect_to root_url
+      end
+    end
 end

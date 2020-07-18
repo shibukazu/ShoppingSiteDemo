@@ -58,4 +58,6 @@ class ItemsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select "p#notice", "購入しました"
     
   end
+
+  
 end

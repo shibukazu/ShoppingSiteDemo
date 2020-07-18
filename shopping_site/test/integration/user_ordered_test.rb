@@ -8,7 +8,7 @@ class UserOrderedTest < ActionDispatch::IntegrationTest
       order.items << @item
       @user.orders << order
     end
-    @admin = admins(:master)
+    @admin = Admin.new(email: "master@test.com", password: "1234567890")
   end
 
   test "user ordered" do

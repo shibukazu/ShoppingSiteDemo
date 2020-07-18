@@ -6,6 +6,7 @@ class OrderTest < ActiveSupport::TestCase
     @item = items(:Test1)
     @order_pair = OrderPair.new(item_id: @item.id)
     @order = Order.new(user_id: @user.id, status: 0)
+    @admin = admins(:master)
     
   end
 
@@ -40,7 +41,6 @@ class OrderTest < ActiveSupport::TestCase
     @order_pair.save
     assert @item == @order.items.first
   end
-
   
   
 end

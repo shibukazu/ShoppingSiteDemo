@@ -8,6 +8,10 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  
+  def con_log_in_as_admin(admin)
+    session[:admin_id] = admin.id
+  end
 
   # Add more helper methods to be used by all tests here...
 end
