@@ -56,5 +56,6 @@ class ItemsInterfaceTest < ActionDispatch::IntegrationTest
     get orders_create_path
     follow_redirect!
     assert_select "p#notice", "購入しました"
+    
   end
 end
