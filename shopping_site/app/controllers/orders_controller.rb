@@ -31,7 +31,15 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    current_users_order?(@order.user)
   end
+
+  private
+    def current_users_order?(user)
+      if !(user.id == session[:user_id])
+        redirect_to root_url
+      end
+    end
 
   
 end

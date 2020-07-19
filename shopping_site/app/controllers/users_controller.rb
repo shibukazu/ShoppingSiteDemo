@@ -10,7 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @orders = User.find(params[:id]).orders.page(params[:page]).per(10)
+    @user = User.find(params[:id])
+    @orders = @user.orders.page(params[:page]).per(10)
+    current_user?(@user)
   end
 
   # GET /users/new
@@ -65,5 +67,11 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :family_name, :email, :password, :password_confirmation)
+    end
+
+    def current_user?(user)
+      if !(user.id == session[:user_id])
+        redirect_to root_url
+      end
     end
 end
