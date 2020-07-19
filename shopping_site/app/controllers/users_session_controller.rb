@@ -8,7 +8,7 @@ class UsersSessionController < ApplicationController
     if @user && @user.authenticate(user_params[:password])
       log_in_as_user(@user)
       flash[:notice] = 'ログインしました'
-      if params[:remember_token] == '1'
+      if user_params[:remember_me] == '1'
         remember(@user)
       else
         forget(@user)
@@ -21,12 +21,14 @@ class UsersSessionController < ApplicationController
   end
 
   def destroy
-    log_out_as_user()
-    if !session[:user_id].nil?
+    if session[:user_id].nil?
       flash[:warning] = "Failed to logout"
       redirect_to root_url
     else
       flash[:notice] = "Successfully logged out"
+      user = User.find(session[:user_id])
+      forget(user)
+      log_out_as_user()
       redirect_to root_url
     end
   end
@@ -34,7 +36,7 @@ class UsersSessionController < ApplicationController
   private
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:email, :password)
+      params.permit(:email, :password, :remember_me)
     end
 
 end

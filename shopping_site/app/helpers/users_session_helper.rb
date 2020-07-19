@@ -9,7 +9,7 @@ module UsersSessionHelper
         
     end
 
-    def logged_in_as_user?()
+    def logged_in_as_user?
         if !session[:user_id].nil?
             return true
         elsif !cookies.signed[:user_id].nil?
@@ -26,7 +26,6 @@ module UsersSessionHelper
     end
 
     def redirect_back_or(default)
-        
         redirect_to(session[:forwarding_url] || default)
         session.delete(:forwarding_url)
     end
@@ -38,8 +37,9 @@ module UsersSessionHelper
     def remember(user)
         user.remember_token = User.new_token
         user.update_attribute(:remember_digest, User.digest(user.remember_token))
-        cookies.parmanent.signed[:user_id] = user.id
-        cookies.parmanent[:remember_token] = user.remember_token
+        cookies.permanent.signed[:user_id] = user.id
+        cookies.permanent[:remember_token] = user.remember_token
+        
     end
 
     def forget(user)
