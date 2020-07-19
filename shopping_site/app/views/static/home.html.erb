@@ -1,52 +1,86 @@
-<p id="notice"><%= notice %></p>
-<h1>ショッピングサイト</h1>
-<% if logged_in_as_user?() %>
-<%= link_to "注文履歴一覧", user_path(session[:user_id]) %>
-<%= link_to "ログアウト",  users_session_destroy_path %>
-<% else %>
-<%= link_to 'ログイン', users_session_new_path %>
-<%= link_to "アカウントをお持ちでない方はこちら", new_user_path %>
-<% end %>
-<%= form_with(url: carts_path, method: :get, local: true) do |form| %>
-    <div class="actions">
-        <%= form.submit value: "カートを見る" %>
-    </div>
-<% end %>
-
-<%= form_with(url: static_home_path, method: :get, local: true) do |form| %>
-    <%= form.text_field :search, value: @search_word %>
-    <%= form.submit value: "検索" %>
-<% end %>
-
-<%= render 'shared/sort_items', url: root_path, search_word: @search_word %>
-<table>
-    <thead>
-        <tr>
-            <th colspan="6"></th>
-            <th colspan="6"></th>
-            <th colspan="6"></th>
-            <th colspan="6"></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% @items.each do |item| %>
-        <tr>
-            <td><%= link_to (image_tag item.image.url if item.image?), item_path(item) %></td>
-            <td><%= item.name %></td>
-            <td><%= item.price %></td>
-            <td>
-                <%= form_with(url: carts_path, local: true) do |form| %>
-                    <div class="field">
-                        <%= form.hidden_field :item_id, value: item.id %>
-                    </div>
-                    <div class="actions">
-                        <%= form.submit value: "カートに追加" %>
-                    </div>
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <%= link_to "ショッピングサイト", root_path, class: "navbar-brand" %>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
+        <% if logged_in_as_user?() %>
+            <div class="form-inline my-2 my-lg-0  form-group mx-auto">
+                <%= form_with(url: static_home_path, method: :get, local: true) do |form| %>
+                <%= form.hidden_field :search, value: @search_word %>
+                <%= form.text_field :search, value: @search_word, placeholder: "キーワード", class: "form-control sm-2" %>
+                <%= form.submit value: "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
                 <% end %>
-            </td>
-        </tr>
+            </div>
+            <ul class="navbar-nav mr-0">
+                <li class="nav-item mx-auto">
+                    <%= link_to "カートを見る", carts_path, class: "nav-link" %>
+                </li> 
+                <li class="nav-item mx-3 mx-auto">
+                    <%= link_to "注文履歴", user_path(session[:user_id]), class: "nav-link" %>
+                </li>
+                <li class="nav-item mx-3 mx-auto">
+                    <%= link_to "ログアウト",  users_session_destroy_path, class: "nav-link" %>
+                </li>
+            </ul>
+        <% else %>
+            <ul class="navbar-nav mr-0">
+                <li class="nav-item">
+                    <%= link_to 'ログイン', users_session_new_path, class: "nav-link" %>
+                </li>  
+                <li class="nav-item">
+                    <%= link_to "アカウントをお持ちでない方", new_user_path , class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "カートを見る", carts_path, class: "nav-link" %>
+                </li>
+            </ul> 
         <% end %>
-        <%= paginate @items %>
-    </tbody>
-</table>
+    </div>
+</nav>
+        <div class="form-group float-right">
+            <%= form_with(url: static_home_path, method: :get, local: true, class: "form-inline float-right") do |form| %>
+                <%= form.select :sort, [ ["新着順",1], ["古い順", 2], ["名前順", 3] ], prompt: "並び順", class: "custom-select mx-auto" %>
+                <%= form.hidden_field :search, value: @search_word %>
+                <div class="actions">
+                    <%= form.submit value: "並び替える", class:"my-2 my-sm-0 form-control mx-auto" %>
+                </div>
+            <% end %>
+        </div>
+<div class="container mt-5">
+    <div class="row">    
+        <% @items.each do |item| %>
+            <div class="card mx-auto my-3 border-light" style="width:10rem">
+                <div class="card-header  text-md-center font-weight-bold text-truncate">
+                        <%= item.name %>
+                </div>
+                <%= (image_tag item.image.url, class: "card-img-top h-30", alt: "商品画像") if item.image? %>
+                <div class="card-body  text-md-center">
+                    <div class="card-text  text-md-center">
+                        <p><%= item.price %>円</p>
+                    </div>
+                    <%= link_to "商品詳細", item_path(item), class: "card-link" %>
+                </div>
+                <div class="card-footer">
+                    <%= form_with(url: carts_path, local: true) do |form| %>
+                        <div class="field">
+                            <%= form.hidden_field :item_id, value: item.id %>
+                        </div>
+                        <div class="actions">
+                            <%= form.submit value: "カートに追加", class: "btn btn-primary" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="offset-md-4">
+    <%= paginate @items %>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+        <p class="mx-auto my-4"><%= link_to "管理者の方はこちら", admins_session_new_path %></p>
+        </div>
+    </div>
+</footer>
+
+

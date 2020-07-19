@@ -33,6 +33,12 @@ gem 'kaminari'
 gem 'gimei'
 
 gem 'faker'
+
+gem 'bootstrap'
+
+gem 'jquery-rails'
+
+gem 'kaminari-bootstrap'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
