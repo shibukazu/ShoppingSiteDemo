@@ -2,6 +2,9 @@ class AdminsSessionController < ApplicationController
   
   def new
     @admin = Admin.new
+    if logged_in_as_admin?()
+      redirect_to admins_url
+    end
   end
 
   def create
