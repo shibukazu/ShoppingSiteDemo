@@ -1,7 +1,7 @@
 class AdminsSessionController < ApplicationController
   
   def new
-    
+    @admin = Admin.new
   end
 
   def create
@@ -10,8 +10,9 @@ class AdminsSessionController < ApplicationController
       log_in_as_admin(@admin)
       redirect_to admins_path
     else
-      flash[:warning] = "Invalid admin user"
-      redirect_to root_url
+      @admin = Admin.new
+      @admin.errors.add(:base, "ログイン情報が正しくありません")
+      redirect_to admins_session_new_url, flash: { error: @admin.errors.full_messages }
     end
   end
 

@@ -1,6 +1,6 @@
 class UsersSessionController < ApplicationController
   def new
-  
+    @user = User.new()
   end
 
   def create
@@ -15,8 +15,13 @@ class UsersSessionController < ApplicationController
       end
       redirect_back_or(root_url)
     else
-      flash[:warning] = "ログインできませんでした"
-      render :new
+      @user = User.new
+      if params[:email].empty? && params[:password].empty?
+        @user.errors.add(:base, "ログイン情報が入力されていません")
+      else
+        @user.errors.add(:base, "メールアドレスまたはパスワードが間違っています")
+      end
+      redirect_to users_session_new_url, flash: {error: @user.errors.full_messages}
     end
   end
 

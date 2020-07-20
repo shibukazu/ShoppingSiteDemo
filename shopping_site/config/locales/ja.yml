@@ -213,3 +213,26 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
+  activerecord: 
+      models:
+        user: ユーザー
+      attributes:
+        user:
+          first_name: 名前
+          family_name: 名字
+          email: メールアドレス 
+          password: パスワード
+
+      models:
+        admin: 管理者
+      attributes:
+        admin:
+          email: メールアドレス 
+          password: パスワード
+      models:
+        item: 商品
+      attributes:
+        item:
+          name: 商品名
+          price: 価格
+

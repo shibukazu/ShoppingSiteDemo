@@ -21,7 +21,8 @@ class AdminsController < ApplicationController
       flash[:notice] = 'Admin was successfully created.' 
       redirect_to admins_url
     else
-      render :new 
+      
+      redirect_to new_admin_url, flash: {error: @admin.errors.full_messages }
     end
   end
   

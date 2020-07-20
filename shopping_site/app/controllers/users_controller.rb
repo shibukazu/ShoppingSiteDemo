@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       log_in_as_user(@user)
       redirect_to root_url
     else
-      render "new"
+      redirect_to new_user_url, flash: { error: @user.errors.full_messages }
     end
     
   end

@@ -1,12 +1,12 @@
 <%= form_with(url: admins_session_create_path, local: true) do |form| %>
-
+  <%= render 'shared/errors' %>
   <div class="field">
-    <%= form.label :email %>
+    <%= form.label :email, "メールアドレス" %>
     <%= form.text_field :email %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
+    <%= form.label :password, "パスワード" %>
     <%= form.password_field :password %>
   </div>
 

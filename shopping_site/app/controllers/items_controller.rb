@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
                 redirect_to items_url
             
             else
-                render 'edit'
+                redirect_to edit_item_url, flash: { error: @item.errors.full_messages }
             end
         end
         # POST /admins
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
                 flash[:notice] = 'Item was successfully saved.' 
                 redirect_to items_url
             else
-                render :new 
+                redirect_to new_item_url, flash: { error: @item.errors.full_messages }
             end
         end
         
