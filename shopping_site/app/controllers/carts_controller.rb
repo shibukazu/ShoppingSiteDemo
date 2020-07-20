@@ -23,12 +23,13 @@ class CartsController < ApplicationController
     def create
         if logged_in_as_user?
             @cart = Cart.new(user_id: session[:user_id], item_id: params[:item_id])
+            store_location
             if @cart.save
                 flash[:notice] = 'カートに追加しました'
-                redirect_to root_url
+                redirect_back_or(root_url)
             else
                 flash[:warning] = 'カートに追加できませんでした'
-                redirect_to root_url
+                redirect_back_or(root_url)
             end
         else
             store_location

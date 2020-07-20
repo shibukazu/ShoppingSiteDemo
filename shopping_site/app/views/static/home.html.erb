@@ -1,13 +1,13 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
     <%= link_to "ショッピングサイト", root_path, class: "navbar-brand" %>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
-        <% if logged_in_as_user?() %>
             <div class="form-inline my-2 my-lg-0  form-group mx-auto">
                 <%= form_with(url: static_home_path, method: :get, local: true) do |form| %>
                 <%= form.hidden_field :search, value: @search_word %>
                 <%= form.text_field :search, value: @search_word, placeholder: "キーワード", class: "form-control sm-2" %>
                 <%= form.submit value: "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
                 <% end %>
+            <% if logged_in_as_user?() %>
             </div>
             <ul class="navbar-nav mr-0">
                 <li class="nav-item mx-auto">
@@ -54,7 +54,7 @@
                 <%= (image_tag item.image.url, class: "card-img-top h-30", alt: "商品画像") if item.image? %>
                 <div class="card-body  text-md-center">
                     <div class="card-text  text-md-center">
-                        <p><%= item.price %>円</p>
+                        <p><%= item.price.to_s(:delimited) %>円</p>
                     </div>
                     <%= link_to "商品詳細", item_path(item), class: "card-link" %>
                 </div>

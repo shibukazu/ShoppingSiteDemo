@@ -9,6 +9,7 @@
 発送完了
 <% end %>
 </h2>
+<h4>ご注文点数 : <%= @order.items.count %>点</h4>
     <table>
         <thead>
         <tr>
@@ -24,10 +25,10 @@
             <tr>
                 <td><%= link_to (image_tag (item.image.url) if item.image?), item_path(item) %></td>
                 <td><%= item.name %></td>
-                <td><%= item.price %></td>
+                <td><%= item.price.to_s(:delimited) %>円</td>
             </tr>
             <% sum = sum + item.price %>
         <% end %>
     </tbody>
     </table>
-<h2>合計ご注文金額 : <%= sum %>円</h2>
+<h2>合計ご注文金額 : <%= sum.to_s(:delimited) %>円</h2>

@@ -27,14 +27,15 @@
             <p>管理者にご連絡ください。</p>
     <% end %>
 <% end %>
+<h4>注文点数 : <%= @order.items.count %>点</h4>
 <br>
 </h2>
     <table>
         <thead>
         <tr>
-            <th colspan="3"></th>
-            <th colspan="3"></th>
-            <th colspan="3"></th>
+            <th>商品画像</th>
+            <th>商品名</th>
+            <th>価格</th>
         </tr>
     </thead>
 
@@ -44,13 +45,13 @@
             <tr>
                 <td><%= link_to (image_tag (item.image.url) if item.image?), item_path(item) %></td>
                 <td><%= item.name %></td>
-                <td><%= item.price %></td>
+                <td><%= item.price.to_s(:delimited) %>円</td>
             </tr>
             <% sum = sum + item.price %>
         <% end %>
     </tbody>
     </table>
-<h2>合計金額 : <%= sum %>円</h2>
+<h2>合計金額 : <%= sum.to_s(:delimited) %>円</h2>
 <h2>注文者情報</h2>
 <h3>ユーザー名 : <%= @order.user.name %></h3>
 <h3>メールアドレス : <%= @order.user.email %></h3>

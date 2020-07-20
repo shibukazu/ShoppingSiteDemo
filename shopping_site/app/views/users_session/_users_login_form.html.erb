@@ -1,32 +1,23 @@
 
-
 <%= form_with(url: users_session_create_path, local: true) do |form| %>
-
-   <% if flash[:error].present? %>
-    <ul class="errors">
-      <% flash[:error].each do |e| %>
-        <li><%= e %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-
     <div class="field">
-        <%= form.label :email, "メールアドレス" %>
-        <%= form.text_field :email, placeholder: "メールアドレス"%>
+        <%= form.label :email, "メールアドレス", class: "mx-auto" %>
+        <%= form.text_field :email, placeholder: "メールアドレス", class: "form-control"%>
     </div>
 
     <div class="field">
-        <%= form.label :password, "パスワード" %>
-        <%= form.password_field :password, placeholder: "パスワード"%>
+        <%= form.label :password, "パスワード", class: "mx-auto mt-2" %>
+        <%= form.password_field :password, placeholder: "パスワード", class: "form-control" %>
     </div>
 
     <div class="actions">
-        <%= form.submit value: "ログイン" %>
+        <%= form.submit value: "ログイン", class: "btn btn-primary mt-2 " %>
     </div>
 
     <%= form.label :remember_me do %>
+      <div class="mt-2">
         <%= form.check_box :remember_me %>
         <span>次回からログインを省略する</span>
     <% end %>
+      </div>
 <% end %>

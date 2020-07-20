@@ -17,7 +17,7 @@
         <% @carts.each do |cart| %>
             <tr>
                 <td><%= cart.item.name %></td>
-                <td><%= cart.item.price %></td>
+                <td><%= cart.item.price.to_s(:delimited) %>円</td>
                 <td><%= link_to (image_tag (cart.item.image.url) if cart.item.image?), item_path(cart.item) %></td>
                 <td><%= link_to "削除", cart_path(cart), method: :delete %></td>
             </tr>
@@ -27,7 +27,7 @@
     </tbody>
     </table>
 
-    <h2>合計金額は<%= sum %>円です</h2>
+    <h2>合計金額は<%= sum.to_s(:delimited) %>円です</h2>
     <h2>本当に購入しますか？</h2>
     <%= form_with(url: orders_create_path, method: :get, local: true) do |form| %>
         <div class="actions">

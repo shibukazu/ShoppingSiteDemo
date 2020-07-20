@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @orders = @user.orders.page(params[:page]).per(10)
+    @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
     current_user?(@user)
   end
 
