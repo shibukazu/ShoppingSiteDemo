@@ -30,7 +30,7 @@
     <h2>合計金額は<%= sum.to_s(:delimited) %>円です</h2>
     <%= form_with(url: new_order_path, method: :get, local: true) do |form| %>
         <div class="actions">
-            <%= form.submit value: "注文する" %>
+            <%= form.submit value: "注文する" class="btn btn-primary" %>
         </div>
     <% end %>
 <% else %>
