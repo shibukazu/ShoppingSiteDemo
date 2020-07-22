@@ -11,7 +11,7 @@
             </div>
             <ul class="navbar-nav mr-0">
                 <li class="nav-item mx-auto">
-                    <%= link_to "カートを見る", carts_path, class: "nav-link" %>
+                    <%= link_to "カートを見る", carts_path, class: "nav-link"%>
                 </li> 
                 <li class="nav-item mx-3 mx-auto">
                     <%= link_to "注文履歴", user_path(session[:user_id]), class: "nav-link" %>
@@ -22,15 +22,16 @@
             </ul>
         <% else %>
             <ul class="navbar-nav mr-0">
-                <li class="nav-item">
-                    <%= link_to 'ログイン', users_session_new_path, class: "nav-link" %>
-                </li>  
-                <li class="nav-item">
-                    <%= link_to "アカウントをお持ちでない方", new_user_path , class: "nav-link" %>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item mx-auto">
                     <%= link_to "カートを見る", carts_path, class: "nav-link" %>
                 </li>
+                <li class="nav-item  mx-3 mx-auto">
+                    <%= link_to 'ログイン', users_session_new_path(from_home: 1), class: "nav-link" %>
+                </li>  
+                <li class="nav-item mx-3 mx-auto">
+                    <%= link_to "アカウントをお持ちでない方", new_user_path , class: "nav-link" %>
+                </li>
+
             </ul> 
         <% end %>
     </div>
@@ -45,7 +46,8 @@
             <% end %>
         </div>
 <div class="container mt-5">
-    <div class="row">    
+    <div class="row">  
+         
         <% @items.each do |item| %>
             <div class="card mx-auto my-3 border-light" style="width:10rem">
                 <div class="card-header  text-md-center font-weight-bold text-truncate">
@@ -70,8 +72,9 @@
                 </div>
             </div>
         <% end %>
+        
     </div>
-    <div class="offset-md-4">
+    <div class="offset-md-5">
     <%= paginate @items %>
     </div>
 </div>

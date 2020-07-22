@@ -30,3 +30,7 @@
   height: 60px;
   background-color: #f5f5f5;
 }
+
+.field_with_errors {
+  @extend .is-invalid;
+}

@@ -1,6 +1,9 @@
 class UsersSessionController < ApplicationController
   def new
     @user = User.new()
+    if not params[:from_home].nil?
+      session.delete(:forwarding_url)
+    end
   end
 
   def create
