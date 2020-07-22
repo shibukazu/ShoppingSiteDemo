@@ -20,20 +20,19 @@
                     <%= link_to "ログアウト",  users_session_destroy_path, class: "nav-link" %>
                 </li>
             </ul>
-        <% else %>
-            <ul class="navbar-nav mr-0">
+            <% else %>
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item mx-auto">
                     <%= link_to "カートを見る", carts_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item  mx-3 mx-auto">
                     <%= link_to 'ログイン', users_session_new_path(from_home: 1), class: "nav-link" %>
                 </li>  
-                <li class="nav-item mx-3 mx-auto">
+                <li class="nav-item mr-0">
                     <%= link_to "アカウントをお持ちでない方", new_user_path , class: "nav-link" %>
                 </li>
-
             </ul> 
-        <% end %>
+            <% end %>
     </div>
 </nav>
         <div class="form-group float-right">
