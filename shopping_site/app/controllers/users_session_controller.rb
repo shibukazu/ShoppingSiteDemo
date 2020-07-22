@@ -3,6 +3,7 @@ class UsersSessionController < ApplicationController
     @user = User.new()
     if not params[:from_home].nil?
       session.delete(:forwarding_url)
+      session.delete(:item_id)
     end
   end
 

@@ -8,20 +8,24 @@
     <%= form.text_field :first_name, placeholder: "名", class: "form-control" %>
     </div>
   </div>
+  
   <div class="field">
     メールアドレス (必須) : 
     <%= form.text_field :email , placeholder: "メールアドレス", class: "form-control"%>
   </div>
+  <span class="exp_text" >現在使用しているメールアドレスをご入力ください</span>
 
   <div class="field">
     <%= form.label :password, "パスワード(必須)", style: "display: inline" %>
     <%= form.password_field :password , placeholder: "パスワード", class: "form-control"%>
   </div>
+  <span class="exp_text" >10文字以上で入力してください</span>
 
   <div class="field">
     <%= form.label :password_confirmation, "パスワード確認(必須)", style: "display: inline" %>
     <%= form.password_field :password_confirmation, placeholder: "パスワード（確認)", class: "form-control"%>
   </div>
+<span class="exp_text" >入力したパスワードと同じものを入力してください</span>
 
   <div class="actions">
     <%= form.submit value: "アカウントを作成", class: "btn btn-primary" %>

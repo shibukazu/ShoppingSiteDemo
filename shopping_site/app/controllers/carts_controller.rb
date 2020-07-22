@@ -8,7 +8,7 @@ class CartsController < ApplicationController
                 session.delete(:item_id)
                 if @cart.save
                     flash[:notice] = 'カートに追加しました'
-                    redirect_to root_url
+                    redirect_to carts_url
                 else
                     flash[:warning] = 'カートに追加できませんでした'
                     redirect_to root_url
