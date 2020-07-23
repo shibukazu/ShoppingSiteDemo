@@ -1,35 +1,69 @@
-<h1>注文詳細ページ</h1>
-<h2>注文処理状況 : 
-<% case @order.status %>
-<% when 0 %>
-入金待ち
-<% when 1 %>
-発送待ち
-<% when 2 %>
-発送完了
-<% end %>
-</h2>
-<h4>ご注文点数 : <%= @order.items.count %>点</h4>
-    <table>
-        <thead>
-        <tr>
-            <th colspan="3"></th>
-            <th colspan="3"></th>
-            <th colspan="3"></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% sum = 0 %>
-        <% @order.items.each do |item| %>
-            <tr>
-                <td><%= link_to (image_tag (item.image.url) if item.image?), item_path(item) %></td>
-                <td><%= item.name %></td>
-                <td><%= item.price.to_s(:delimited) %>円</td>
-            </tr>
-            <% sum = sum + item.price %>
-        <% end %>
-    </tbody>
-    </table>
-<h2>合計ご注文金額 : <%= sum.to_s(:delimited) %>円</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mt-5 mb-2">注文の詳細</h2>
+            <div class="card mb-3" style="width: 100%">
+                <div class="row no-gutters">
+                    <div class="col-md-6 my-auto">
+                        <p class="my-auto">ご注文者情報</p>
+                        <p class="my-auto">ご注文者氏名 : <%= @order.user.name %></p>
+                        <p class="my-auto">メールアドレス : <%= @order.user.email %></p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p>
+                                <h4 class="text-center mr-5 ml-5" style="display:inline;">注文点数</h4>
+                                <h4 class="text-right" style="display:inline;"><%= @order.items.count %>点</h4>
+                            </p>
+                            <p>
+                                <h3 class="text-center mr-5 ml-5" style="display:inline;">ご請求金額</h3>
+                                <h3 class="text-right" style="display:inline;">
+                                    <% sum = 0 %><% @order.items.each { |item| sum += item.price } %>¥<%= sum.to_s(:delimited) %>
+                                </h3>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div col-md-12>
+            <h3 class="mb-2 ml-3">
+                注文処理状況  :   
+                <% case @order.status %>
+                    <% when 0 %>
+                    入金待ち
+                    <% when 1 %>
+                    発送待ち
+                    <% when 2 %>
+                    発送完了
+                <% end %>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <% @order.items.each do |item| %>
+                <div class="card mb-3" style="width: 100%">
+                    <div class="row no-gutters">
+                        <div class="col-md-3 my-auto">
+                            <%= link_to (image_tag item.image.url, class: "card-img-left" if item.image?), item_path(item) %>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.name %></h5>
+                                <p>¥ <%= item.price.to_s(:delimited) %></p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-body">
+                                <%= render 'shared/to_item', item: item %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+    
 

@@ -13,13 +13,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @search_word = params[:search]
     if @search_word.nil?
-      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(5)
     elsif @search_word.empty?
-      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(5)
     else
       items = Item.search_order_by_item_name(@search_word)
       if items.empty?
-        @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+        @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(5)
       else 
         first_item = items.first
         first_orders = first_item.orders.where(user_id: @user.id)
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
             first_orders = first_orders + item.orders.where(user_id: @user.id)
           end
         end
-        @orders = Order.where(id: first_orders.map{ |order| order.id }).order(created_at: "DESC").page(params[:page]).per(10)
+        @orders = Order.where(id: first_orders.map{ |order| order.id }).order(created_at: "DESC").page(params[:page]).per(5)
       end
     end
     
