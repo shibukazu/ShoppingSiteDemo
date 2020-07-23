@@ -11,7 +11,27 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+    @search_word = params[:search]
+    if @search_word.nil?
+      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+    elsif @search_word.empty?
+      @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+    else
+      items = Item.search_order_by_item_name(@search_word)
+      if items.empty?
+        @orders = @user.orders.order(created_at: "DESC").page(params[:page]).per(10)
+      else 
+        first_item = items.first
+        first_orders = first_item.orders.where(user_id: @user.id)
+        items.each do |item|
+          if item != first_item
+            first_orders = first_orders + item.orders.where(user_id: @user.id)
+          end
+        end
+        @orders = Order.where(id: first_orders.map{ |order| order.id }).order(created_at: "DESC").page(params[:page]).per(10)
+      end
+    end
+    
     current_user?(@user)
   end
 

@@ -18,6 +18,11 @@
   height: 15vw;
   object-fit: cover;
 }
+.card-img-left {
+  width: 15vw;
+  height: 100%;
+  object-fit: cover;
+}
 
 .container .text-muted {
   margin: 20px 0;
@@ -33,6 +38,11 @@
 
 .field_with_errors {
   @extend .is-invalid;
+}
+
+.exp_text {
+  font-size: 0.8rem;
+  color: gray;
 }
 
 .exp_text {

@@ -1,21 +1,64 @@
-<h1>注文確認ページ</h1>
-<table>
-  <thead>
-  <tr>
-      <th colspan="3"></th>
-      <th colspan="3"></th>
-      <th colspan="3"></th>
-  </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= link_to (image_tag (order.items.first.image.url) if order.items.first.image?), order_path(order) %></td>
-        <td><%= order.items.first.name %>などのご注文</td>
-        <td><%= order.created_at.to_s(:datetime_jp) %></td>
-      </tr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 text-left">
+      <h2 class="mt-4 mb-4">注文履歴</h2>
+    </div>
+    <div class="col-md-5 mr-0">
+    <%= form_with(url: user_path(@user), method: :get, local: true, class: "form-inline mt-4 mb-4") do |form| %>
+      <%= form.text_field :search, placeholder: "注文した商品名で検索", class: "form-control sm-2" %>
+      <%= form.submit value: "注文を検索", class: "btn btn-outline-success my-2 my-sm-0" %>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @orders %>
-<%= render 'shared/to_home' %>
+    </div>
+  </div>
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="card mb-3" style="width: 100%; max-width: 1000px;">
+        <div class="card-header">
+          <div class="row">
+          <div class="col-md-3">
+            <p class="exp_text">注文日</p>
+            <p class="exp_text"><%= order.created_at.to_s(:datetime_jp) %></p>
+          </div>
+          <div class="col-md-3">
+            <p class="exp_text">合計金額</p>
+            <p class="exp_text"><% sum = 0 %><% order.items.each { |item| sum += item.price } %>¥<%= sum.to_s(:delimited) %></p>
+          </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 my-auto">
+            <%= link_to (image_tag order.items.first.image.url, class: "card-img-left" if order.items.first.image?), order_path(order) %>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title"><%= order.items.first.name %></h3>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card-body">
+              <%= form_with(url: order_path(order), method: :get, local: true, class: "float-center") do |form| %>
+                <div class="actions">
+                    <%= form.submit value: "注文詳細", class:"btn btn-secondary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <%= paginate @orders %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mb-3">
+      <%= render 'shared/to_home' %>
+    </div>
+  </div>
+</div>
