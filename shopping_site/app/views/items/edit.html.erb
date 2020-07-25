@@ -1,2 +1,16 @@
-<h1>商品編集</h1>
-<%= render 'item_form', item: @item %>
+<div class="containe">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        <h2 class="mx-auto mt-2 mb-2">商品編集</h2>
+        <%= render 'item_form', item: @item %>
+        <div class="mt-4">
+        <%= render 'shared/to_items' %>
+        </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+<script>
+    bsCustomFileInput.init();
+</script>
