@@ -12,6 +12,9 @@
   </div>
   <div class="row">
     <% @orders.each do |order| %>
+      <% if order.items.empty? %>
+        <% next %>
+      <% end %>
       <div class="card mb-3" style="width: 100%; max-width: 1000px;">
         <div class="card-header">
           <div class="row">

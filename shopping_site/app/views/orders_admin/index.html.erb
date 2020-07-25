@@ -1,36 +1,86 @@
-<h1>注文確認ページ</h1>
-<h3>注文総数 : <%= @order_count %> </h3>
-<table>
-    <thead>
-    <tr>
-        <th>注文日時</th>
-        <th></th>
-        <th>注文内容</th>
-        <th>注文ステータス</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @orders.each do |order| %>
-    <% if order.items.empty? %>
-        <% next %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 text-left">
+      <h2 class="mt-4 mb-4">注文一覧</h2>
+    </div>
+    <div class="col-md-5 mr-0">
+    <%= form_with(url: orders_admin_index_path, method: :get, local: true, class: "form-inline mt-4 mb-4") do |form| %>
+      <%= form.text_field :search, placeholder: "注文に含まれる商品名", class: "form-control sm-2" %>
+      <%= form.submit value: "注文を検索", class: "btn btn-outline-success my-2 my-sm-0" %>
     <% end %>
-    <tr>
-        <td><%= order.created_at.to_s(:datetime_jp) %></td>
-        <td><%= link_to (image_tag (order.items.first.image.url) if order.items.first.image?), orders_admin_show_path(order_id: order.id) %></td>
-        <td><%= order.items.first.name %>などのご注文</td>
-        <td>
+    </div>
+  </div>
+  <div class="row">
+    <% @orders.each do |order| %>
+        <% if order.items.empty? %>
+            <% next %>
+        <% end %>
+      <div class="card mb-3" style="width: 100%; max-width: 1000px;">
+        <div class="card-header">
+          <div class="row">
+          <div class="col-md-3">
+            <p class="exp_text">注文日時</p>
+            <p class="exp_text"><%= order.created_at.to_s(:datetime_jp) %></p>
+          </div>
+          <div class="col-md-3">
+            <p class="exp_text">最終更新日時</p>
+            <p class="exp_text"><%= order.updated_at.to_s(:datetime_jp) %></p>
+          </div>
+          <div class="col-md-3">
+            <p class="exp_text">合計金額</p>
+            <p class="exp_text"><% sum = 0 %><% order.items.each { |item| sum += item.price } %>¥<%= sum.to_s(:delimited) %></p>
+          </div>
+          <div class="col-md-3 text-right">
+            <p class="exp_text">注文ステータス</p>
             <% case order.status %>
                 <% when 0 %>
-                    入金待ち
+                    <p class="exp_text">入金待ち</p>
                 <% when 1 %>
-                    発送待ち
+                    <p class="exp_text">発送待ち</p>
                 <% when 2 %>
-                    発送完了
+                    <p class="exp_text">発送完了</p>
             <% end %>
-        </td>
-    </tr>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 my-auto">
+            <%= link_to (image_tag order.items.first.image.url, class: "card-img-left" if order.items.first.image?), order_path(order) %>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h4 class="card-title text-truncate"><%= order.items.first.name %>などのご注文</h4>
+              <p>購入者 : <%= order.user.name %></p>
+              <p>メールアドレス : <%= order.user.email %></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card-body">
+              <%= form_with(url: orders_admin_show_path, method: :get, local: true, class: "float-center") do |form| %>
+                <div class="actions">
+                    <%= form.hidden_field :order_id, value: order.id %>
+                    <%= form.submit value: "注文管理", class:"btn btn-secondary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-    </tbody>
-</table>
-<%= paginate @orders %>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <%= paginate @orders %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mb-3">
+      <%= render 'shared/to_home' %>
+    </div>
+  </div>
+</div>
 

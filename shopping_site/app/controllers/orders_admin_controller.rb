@@ -1,7 +1,26 @@
 class OrdersAdminController < ApplicationController
   before_action :admin?
   def index
-    @orders = Order.order(updated_at: "DESC").page(params[:page]).per(10)
+    @search_word = params[:search]
+    if @search_word.nil?
+      @orders = Order.order(created_at: "DESC").page(params[:page]).per(5)
+    elsif @search_word.empty?
+      @orders = Order.order(created_at: "DESC").page(params[:page]).per(5)
+    else
+      items = Item.search_order_by_item_name(@search_word)
+      if items.empty?
+        @orders = Order.order(created_at: "DESC").page(params[:page]).per(5)
+      else 
+        first_item = items.first
+        first_orders = first_item.orders
+        items.each do |item|
+          if item != first_item
+            first_orders = first_orders + item.orders
+          end
+        end
+        @orders = Order.where(id: first_orders.map{ |order| order.id }).order(created_at: "DESC").page(params[:page]).per(5)
+      end
+    end
     @order_count = Order.count
     render 'orders_admin/index'
   end
