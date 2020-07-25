@@ -1,41 +1,65 @@
-<p id="notice"><%= notice %></p>
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <%= link_to "管理者ページ", admins_path, class: "navbar-brand" %>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
+      <ul class="navbar-nav mr-0">
+          <li class="nav-item mx-auto">
+              <%= link_to "管理ユーザー", admins_path, class: "nav-link"%>
+          </li> 
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "商品管理", items_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "注文管理",  orders_admin_index_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "ログアウト",  admins_session_destroy_path, class: "nav-link" %>
+          </li>
+      </ul>
+    </div>
+</nav>
+<div class="container mt-4">
+  <div class="row">
 
-<h1>管理ユーザー 一覧</h1>
+    <h2>管理ユーザー 一覧</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>メールアドレス</th>
-      <th colspan="3"></th>
-      <th colspan="3"></th>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>メールアドレス</th>
+          <th>権限</th>
+          <th></th>
+        </tr>
+      </thead>
 
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admins.each do |admin| %>
-      <tr>
-        <td><%= admin.email %></td>
-        <% if admin.id != session[:admin_id] && !admin.master?%>
-        <td><%= link_to 'ユーザーの削除', admin, method: :delete, data: { confirm: '削除してもよろしいですか?' } %></td>
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr>
+            <td><%= admin.email %></td>
+            <% if admin.master? %>
+            <td>マスター</td>
+            <% else %>
+            <td>一般</td>
+            <% end %>
+            <% if admin.id != session[:admin_id] && !admin.master?%>
+            <td><%= link_to '管理ユーザーの削除', admin, method: :delete, data: { confirm: '削除してもよろしいですか?' } %></td>
+            <% end %>
+          </tr>
         <% end %>
-        <% if admin.master? %>
-        <td>Master</td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @admins %>
-
-
-
-<br>
-
-<%= link_to '管理ユーザーの追加', new_admin_path %>
-<br>
-<%= link_to '商品一覧', items_path %>
-<br>
-<%= link_to '注文管理', orders_admin_index_path %>
-<br>
-<%= link_to 'ログアウト', admins_session_destroy_path %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <%= paginate @admins %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mb-3">
+      <%= render 'shared/to_home' %>
+    </div>
+  </div>
+</div>

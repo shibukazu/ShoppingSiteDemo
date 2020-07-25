@@ -1,11 +1,11 @@
 
 <% #params[:sort]に渡す→存在で場合わけ %>
-<div class="form-inline my-2 my-lg-0">
-<%= form_with(url: url, method: :get, local: true) do |form| %>
-    <%= form.select :sort, [ ["新着順",1], ["古い順", 2], ["名前順", 3] ], prompt: "並び順" %>
+<div class="form-group my-auto my-lg-0">
+<%= form_with(url: url, method: :get, local: true, class: "form-inline my-auto") do |form| %>
+    <%= form.select :sort, [ ["新着順",1], ["古い順", 2], ["名前順", 3] ], { prompt: "並び順" }, {class: 'custom-select'} %>
     <%= form.hidden_field :search, value: search_word %>
     <div class="actions">
-        <%= form.submit value: "並び替える", class:"my-2 my-sm-0" %>
+        <%= form.submit value: "並び替える", class:"my-2 my-sm-0 ml-1 btn btn-outline-secondary" %>
     </div>
 <% end %>
 </div>

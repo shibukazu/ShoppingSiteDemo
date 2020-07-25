@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  
   def new
     if logged_in_as_user? 
       @carts = Cart.where(user_id: session[:user_id]).where(status: 0)
