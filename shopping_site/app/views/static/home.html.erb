@@ -1,40 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
-    <%= link_to "ショッピングサイト", root_path, class: "navbar-brand" %>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
-            <div class="form-inline my-2 my-lg-0  form-group mx-auto">
-                <%= form_with(url: static_home_path, method: :get, local: true) do |form| %>
-                <%= form.hidden_field :search, value: @search_word %>
-                <%= form.text_field :search, value: @search_word, placeholder: "キーワード", class: "form-control sm-2" %>
-                <%= form.submit value: "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
-                <% end %>
-            </div>
-            <% if logged_in_as_user? %>
-            <ul class="navbar-nav mr-0">
-                <li class="nav-item mx-auto">
-                    <%= link_to "カートを見る", carts_path, class: "nav-link"%>
-                </li> 
-                <li class="nav-item mx-3 mx-auto">
-                    <%= link_to "注文履歴", user_path(session[:user_id]), class: "nav-link" %>
-                </li>
-                <li class="nav-item mx-3 mx-auto">
-                    <%= link_to "ログアウト",  users_session_destroy_path, class: "nav-link" %>
-                </li>
-            </ul>
-            <% else %>
-            <ul class="navbar-nav float-right">
-                <li class="nav-item mx-auto">
-                    <%= link_to "カートを見る", carts_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item  mx-3 mx-auto">
-                    <%= link_to 'ログイン', users_session_new_path(from_home: 1), class: "nav-link" %>
-                </li>  
-                <li class="nav-item">
-                    <%= link_to "アカウントをお持ちでない方", new_user_path , class: "nav-link"%>
-                </li>
-            </ul> 
-            <% end %>
-    </div>
-</nav>
+<%= render 'shared/user_nav' %>
         <div class="form-group float-right">
             <%= form_with(url: static_home_path, method: :get, local: true, class: "form-inline float-right") do |form| %>
                 <%= form.select :sort, [ ["新着順",1], ["古い順", 2], ["名前順", 3] ], { prompt: "並び順" }, {class: 'custom-select'} %>
