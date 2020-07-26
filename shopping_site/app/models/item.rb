@@ -4,7 +4,7 @@ class Item < ApplicationRecord
     validates :price, presence: true
     has_many :carts, dependent: :destroy
     has_many :items, through: :carts
-    has_many :order_pairs, dependent: :destroy
+    has_many :order_pairs
     has_many :orders, through: :order_pairs
 
     def self.search_by_name(search)

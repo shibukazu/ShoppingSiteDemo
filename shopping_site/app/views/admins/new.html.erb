@@ -1,5 +1,14 @@
-<h1>管理者アカウント新規作成</h1>
+<%= render 'shared/admin_nav' %>
 
-<%= render 'sign_up_form', admin: @admin %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        <h2 class="mx-auto mt-2 mb-2">管理者アカウント新規作成</h2>
+        <%= render 'sign_up_form', admin: @admin %>
+        <div class="mt-4">
+        <%= render 'shared/to_admins' %>
+        </div>
+        </div>
 
-<%= link_to 'Back', admins_path %>
+    </div>
+</div>

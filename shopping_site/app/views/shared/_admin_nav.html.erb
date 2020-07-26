@@ -1,0 +1,22 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <%= link_to "管理者ページ", admins_path, class: "navbar-brand" %>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
+      <ul class="navbar-nav mr-0">
+          <li class="nav-item mx-auto">
+              <%= link_to "ユーザーぺージ", root_path, class: "nav-link"%>
+          </li> 
+          <li class="nav-item mx-auto">
+              <%= link_to "管理ユーザー", admins_path, class: "nav-link"%>
+          </li> 
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "商品管理", items_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "注文管理",  orders_admin_index_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item mx-3 mx-auto">
+              <%= link_to "ログアウト",  admins_session_destroy_path, class: "nav-link" %>
+          </li>
+      </ul>
+    </div>
+</nav>
