@@ -38,11 +38,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:notice] = 'アカウントを作成しました'
+      flash[:success] = 'アカウントを正常に登録しました'
       log_in_as_user(@user)
       redirect_to root_url
     else
-      redirect_to new_user_url, flash: { error: @user.errors.full_messages }
+      redirect_to new_user_url, flash: { error: @user.errors.full_messages,
+                                        info: { family_name: @user.family_name,
+                                                first_name: @user.first_name,
+                                                email: @user.email } }
 
     end
     

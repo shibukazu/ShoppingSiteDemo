@@ -1,3 +1,29 @@
+<% if flash[:info].present? %>
+<%= form_with(model: item, local: true) do |form| %>
+  <%= render 'shared/errors' %>
+
+  <div class="field">
+    <%= form.label :name, "商品名", class: "mx-auto" %>
+    <%= form.text_field :name, value: flash[:info].fetch("name") ,placeholder: "商品名", class: "form-control mb-2" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price, "価格" %>
+    <%= form.number_field :price, value: flash[:info].fetch("price"), placeholder: "価格（円)", class: "form-control mb-2" %>
+  </div>
+
+  <div class="custom-file mb-5">
+    <%= form.label :image, "商品画像(こちらにドロップすることもできます)", class: "custom-file-label mt-3" %>
+    <%= form.file_field :image, value: flash[:info].fetch("image"), class: "custom-file-input mb-3"%>
+  </div>
+
+
+  <div class="actions mx-auto">
+    <%= form.submit value: "商品を登録", class: "btn btn-primary mx" %>
+  </div>
+<% end %>
+
+<% else %>
 <%= form_with(model: item, local: true) do |form| %>
   <%= render 'shared/errors' %>
 
@@ -20,4 +46,5 @@
   <div class="actions mx-auto">
     <%= form.submit value: "商品を登録", class: "btn btn-primary mx" %>
   </div>
+<% end %>
 <% end %>

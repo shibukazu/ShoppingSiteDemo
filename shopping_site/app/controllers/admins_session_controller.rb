@@ -12,6 +12,7 @@ class AdminsSessionController < ApplicationController
     if @admin && @admin.authenticate(admin_params[:password])
       log_in_as_admin(@admin)
       redirect_to admins_path
+      flash[:success] = '管理者としてログインしました'
     else
       @admin = Admin.new
       @admin.errors.add(:base, "ログイン情報が正しくありません")

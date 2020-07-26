@@ -17,9 +17,11 @@ ja:
         family_name: 名字
         email: "メールアドレス"
         password: "パスワード"
+        password_confirmation: "パスワード（確認)"
       admin:
         email: "メールアドレス"
         password: "パスワード"
+        password_confirmation: "パスワード（確認)"
       item:
         name: "商品名"
         price: "価格"

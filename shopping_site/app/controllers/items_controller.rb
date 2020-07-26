@@ -38,11 +38,14 @@ class ItemsController < ApplicationController
         def update
             @item = Item.find(params[:id])
             if @item.update_attributes(item_params)
-                flash[:success] = "Item information updated successfully"
+                flash[:success] = "商品は正常に更新されました"
                 redirect_to items_url
             
             else
-                redirect_to edit_item_url, flash: { error: @item.errors.full_messages }
+                redirect_to edit_item_url, flash: { error: @item.errors.full_messages,
+                                                    info: { name: @item.name,
+                                                        price: @item.price,
+                                                        image: @item.image.url } }
             end
         end
         # POST /admins
@@ -50,10 +53,14 @@ class ItemsController < ApplicationController
         def create
             @item = Item.new(item_params)
             if @item.save
-                flash[:notice] = 'Item was successfully saved.' 
+                flash[:success] = '商品は正常に登録されました' 
                 redirect_to items_url
             else
-                redirect_to new_item_url, flash: { error: @item.errors.full_messages }
+                redirect_to new_item_url, flash: { error: @item.errors.full_messages,
+                                                info: { name: @item.name,
+                                                        price: @item.price,
+                                                        image: @item.image.url } }
+
             end
         end
         
@@ -61,7 +68,7 @@ class ItemsController < ApplicationController
         def destroy
             @item = Item.find(params[:id]).destroy
             redirect_to items_url
-            flash[:notice] = 'Item was successfully destroyed.'
+            flash[:success] = '商品は正常に削除されました'
         end
       
         private

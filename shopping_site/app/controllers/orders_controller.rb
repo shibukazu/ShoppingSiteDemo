@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       @order.items << cart.item
     end
     if @order.save
-      flash[:notice] = '購入しました'
+      flash[:success] = '商品の購入が完了しました'
       @carts.each do |cart|
         cart.destroy
       end

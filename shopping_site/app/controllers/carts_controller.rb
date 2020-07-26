@@ -7,7 +7,7 @@ class CartsController < ApplicationController
                 @cart = Cart.new(user_id: session[:user_id], item_id: session[:item_id])
                 session.delete(:item_id)
                 if @cart.save
-                    flash[:notice] = 'カートに追加しました'
+                    flash[:success] = 'カートに追加しました'
                     redirect_to carts_url
                 else
                     flash[:warning] = 'カートに追加できませんでした'
@@ -25,7 +25,7 @@ class CartsController < ApplicationController
             @cart = Cart.new(user_id: session[:user_id], item_id: params[:item_id])
             store_location
             if @cart.save
-                flash[:notice] = 'カートに追加しました'
+                flash[:success] = 'カートに追加しました'
                 redirect_back_or(root_url)
             else
                 flash[:warning] = 'カートに追加できませんでした'
@@ -40,8 +40,8 @@ class CartsController < ApplicationController
 
     def destroy
         @cart = Cart.find(params[:id])
+        flash[:success] = "カートから#{@cart.item.name}は削除されました"
         @cart.destroy
-        flash[:notice] = '削除されました'
         redirect_to carts_url
     end
     

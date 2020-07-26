@@ -11,7 +11,7 @@ class UsersSessionController < ApplicationController
     @user = User.find_by(email: user_params[:email].downcase)
     if @user && @user.authenticate(user_params[:password])
       log_in_as_user(@user)
-      flash[:notice] = 'ログインしました'
+      flash[:success] = "#{@user.name} 様　ようこそ！"
       if user_params[:remember_me] == '1'
         remember(@user)
       else
@@ -26,15 +26,16 @@ class UsersSessionController < ApplicationController
         @user.errors.add(:base, "メールアドレスまたはパスワードが間違っています")
       end
       redirect_to users_session_new_url, flash: {error: @user.errors.full_messages}
+      
     end
   end
 
   def destroy
     if session[:user_id].nil?
-      flash[:warning] = "Failed to logout"
+      flash[:warning] = "ログアウトに失敗しました"
       redirect_to root_url
     else
-      flash[:notice] = "Successfully logged out"
+      flash[:success] = "正常にログアウトしました"
       user = User.find(session[:user_id])
       forget(user)
       log_out_as_user()

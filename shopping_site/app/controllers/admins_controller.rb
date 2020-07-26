@@ -18,11 +18,12 @@ class AdminsController < ApplicationController
   def create
     @admin = Admin.new(create_admin_params)
     if @admin.save
-      flash[:notice] = 'Admin was successfully created.' 
+      flash[:success] = '管理者アカウントを正常に登録しました' 
       redirect_to admins_url
     else
       
-      redirect_to new_admin_url, flash: {error: @admin.errors.full_messages }
+      redirect_to new_admin_url, flash: {error: @admin.errors.full_messages,
+                                        info: { email: @admin.email } }
     end
   end
   
@@ -30,7 +31,7 @@ class AdminsController < ApplicationController
   def destroy
     @admin = Admin.find(params[:id]).destroy
     redirect_to admins_url
-    flash[:notice] = 'Admin was successfully destroyed.'
+    flash[:notice] = '管理者アカウントを正常に削除しました'
   end
 
   private

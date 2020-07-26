@@ -1,3 +1,39 @@
+<% if flash[:info].present? %>
+<%= form_with(model: user, local: true) do |form| %>
+  <%= form.label :family_name, "お名前(必須)" %>
+  <div class="form-row">
+    <div class="col-md-6">
+    <%= form.text_field :family_name, value: flash[:info].fetch("family_name"), placeholder: "姓", class: "form-control" %>
+    </div>
+    <div class="col-md-6">
+    <%= form.text_field :first_name, value: flash[:info].fetch("first_name"), placeholder: "名", class: "form-control" %>
+    </div>
+  </div>
+  
+  <div class="field">
+    メールアドレス (必須) : 
+    <%= form.text_field :email, value: flash[:info].fetch("email"), placeholder: "メールアドレス", class: "form-control"%>
+  </div>
+  <span class="exp_text" >現在使用しているメールアドレスをご入力ください</span>
+
+  <div class="field">
+    <%= form.label :password, "パスワード(必須)", style: "display: inline" %>
+    <%= form.password_field :password , placeholder: "パスワード", class: "form-control"%>
+  </div>
+  <span class="exp_text" >10文字以上で入力してください</span>
+
+  <div class="field">
+    <%= form.label :password_confirmation, "パスワード確認(必須)", style: "display: inline" %>
+    <%= form.password_field :password_confirmation, placeholder: "パスワード（確認)", class: "form-control"%>
+  </div>
+  <span class="exp_text" >入力したパスワードと同じものを入力してください</span>
+
+  <div class="actions">
+    <%= form.submit value: "アカウントを作成", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<% else %>
 <%= form_with(model: user, local: true) do |form| %>
   <%= form.label :family_name, "お名前(必須)" %>
   <div class="form-row">
@@ -30,4 +66,5 @@
   <div class="actions">
     <%= form.submit value: "アカウントを作成", class: "btn btn-primary" %>
   </div>
+<% end %>
 <% end %>
