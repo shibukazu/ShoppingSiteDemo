@@ -16,6 +16,8 @@ class ItemsController < ApplicationController
                     @items = items.order(created_at: "ASC").page(params[:page]).per(10)
                 elsif params[:sort] == "3"
                     @items = items.order(name: "ASC").page(params[:page]).per(10)
+                elsif params[:sort] == "4"
+                    @items = items.order(updated_at: "DESC").page(params[:page]).per(10)
                 else
                     @items = items.order(updated_at: "DESC").page(params[:page]).per(10)
                 end

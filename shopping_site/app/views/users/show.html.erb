@@ -28,6 +28,17 @@
             <p class="exp_text">合計金額</p>
             <p class="exp_text"><% sum = 0 %><% order.items.each { |item| sum += item.price } %>¥<%= sum.to_s(:delimited) %></p>
           </div>
+          <div class="col-md-6 text-right">
+            <p class="exp_text">注文ステータス</p>
+            <% case order.status %>
+                <% when 0 %>
+                    <p class="exp_text">入金待ち</p>
+                <% when 1 %>
+                    <p class="exp_text">発送待ち</p>
+                <% when 2 %>
+                    <p class="exp_text">発送完了</p>
+            <% end %>
+          </div>
         </div>
         </div>
         <div class="row">

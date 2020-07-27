@@ -51,7 +51,7 @@
           </div>
           <div class="col-md-6">
             <div class="card-body">
-              <h4 class="card-title text-truncate"><%= order.items.first.name %>などのご注文</h4>
+              <h4 class="card-title text-truncate"><%= order.items.first.name %>など<%=order.items.count %>点のご注文</h4>
               <p>購入者 : <%= order.user.name %></p>
               <p>メールアドレス : <%= order.user.email %></p>
             </div>
