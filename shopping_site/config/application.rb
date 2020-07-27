@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module ShoppingSite
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.action_mailer.asset_host = 'http://localhost:3000'
     config.load_defaults 6.0
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'

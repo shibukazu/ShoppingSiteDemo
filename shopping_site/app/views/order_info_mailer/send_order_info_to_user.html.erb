@@ -1,29 +1,85 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <h2><%= @user.name %> 様 </h2>
+        <p>本サイトをご利用いただきありがとうございます。</p>
+        <p>以下の内容でご注文を承りました。</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mt-5 mb-2">注文の詳細</h2>
+            <div class="card mb-3" style="width: 100%">
+                <div class="row no-gutters">
+                    <div class="col-md-6 my-auto">
+                        <p class="my-auto">ご注文者情報</p>
+                        <p class="my-auto">ご注文者氏名 : <%= @order.user.name %></p>
+                        <p class="my-auto">メールアドレス : <%= @order.user.email %></p>
+                        <%= render 'shared/to_order_detail', order: @order.id %>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p>
+                                <h4 class="text-center mr-5 ml-5" style="display:inline;">注文点数</h4>
+                                <h4 class="text-right" style="display:inline;"><%= @order.items.count %>点</h4>
+                            </p>
+                            <p>
+                                <h3 class="text-center mr-5 ml-5" style="display:inline;">ご請求金額</h3>
+                                <h3 class="text-right" style="display:inline;">
+                                    <% sum = 0 %><% @order.items.each { |item| sum += item.price } %>¥<%= sum.to_s(:delimited) %>
+                                </h3>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h3 class="mb-2">
+                注文処理状況  :   
+                <% case @order.status %>
+                    <% when 0 %>
+                    入金待ち
+                    <% when 1 %>
+                    発送待ち
+                    <% when 2 %>
+                    発送完了
+                <% end %>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <% @order.items.each do |item| %>
+                <div class="card mb-3" style="width: 100%">
+                    <div class="row no-gutters">
+                        <div class="col-md-3 my-auto">
+                            <%= link_to (image_tag item.image.url, class: "card-img-left" if item.image?), item_url(item.id) %>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.name %></h5>
+                                <p>¥ <%= item.price.to_s(:delimited) %></p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-body">
+                                <%= render 'shared/to_item', item: item %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <p class="text-center">またのご利用をお待ちしております。</p>
+        <%= render 'shared/to_main_page' %>
+        </div>
+    </div>
+</div>
 
-<h2><%= @user.name %> 様 </h2>
-<p>本サイトをご利用いただきまして誠にありがとうございます。</p>
-<p>ご注文を受け付けました。</p>
-<h3>注文商品一覧 :</h3>
-<% sum = 0 %>
-<table>
-    <thead>
-        <tr>
-            <th colspan="6"></th>
-            <th colspan="6"></th>
-        </tr>
-    </thead>
 
-    <tbody>
-        <% @order.items.each do |item| %>
-        <tr>
-            <td><%= item.name %></td>
-            <td><%= item.price.to_s(:delimited) %>円</td>
-            <% sum += item.price %>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-<p>合計 : <%= sum.to_s(:delimited) %>円</p>
-<p>ご注文日時 : <%= @order.created_at.to_s(:datetime_jp) %>
-<p>ご注文履歴はこちら<%= order_url(@order) %></p>
-
-<h3>今後ともよろしくお願いいたします。</h3>

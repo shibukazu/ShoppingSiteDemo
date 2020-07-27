@@ -1,0 +1,5 @@
+<%= form_with(url: order_url(order), method: :get, local: true, class: "float-left") do |form| %>
+                <div class="actions">
+                    <%= form.submit value: "注文履歴", class:"btn btn-primary" %>
+                </div>
+<% end %>
