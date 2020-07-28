@@ -22,6 +22,6 @@ class UserSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: { name: @invalid_user.name,
         email: @invalid_user.email } }
     end
-    assert_template 'users/new'
+    assert_redirected_to new_user_url
   end
 end

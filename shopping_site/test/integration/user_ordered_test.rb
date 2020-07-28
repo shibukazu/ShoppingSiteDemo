@@ -15,7 +15,7 @@ class UserOrderedTest < ActionDispatch::IntegrationTest
     #注文一覧へのリンクのテスト
     log_in_as_user(@user)
     get root_path
-    assert_select "a[href=?]", user_path(@user), text: "注文履歴一覧" 
+    assert_select "a[href=?]", user_path(@user), text: "注文履歴" 
     #注文一覧へのテスト
     get user_path(@user)
     @user.orders.each do |order|

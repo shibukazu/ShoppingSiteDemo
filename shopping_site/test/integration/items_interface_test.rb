@@ -12,7 +12,7 @@ class ItemsInterfaceTest < ActionDispatch::IntegrationTest
     get root_path
     items.each do |item|
       assert_match item.name, response.body
-      assert_match item.price.to_s, response.body
+      assert_match item.price.to_s(:delimited), response.body
     end
   end
 
