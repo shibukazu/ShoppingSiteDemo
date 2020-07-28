@@ -1,15 +1,15 @@
 ===================
 <%= @user.name %> 様
 ===================
-
-ご注文を受け付けました。
+本サイトをご利用いただきましてありがとうございます。
+以下の内容でご注文を受け付けました。
 注文商品一覧 :
 <% sum = 0 %>
 <% @order.items.each do |item| %>
-<%= item.name %> : <%= item.price %>円
+<%= item.name %> : <%= item.price.to_s(:delimited) %>円
 <% sum += item.price %>
 <% end %>
-合計 : <%= sum %>円
+合計 : <%= sum.to_s(:delimited) %>円
 ご注文履歴はこちら<%= order_url(@order) %>
 
 今後ともよろしくお願いいたします。
